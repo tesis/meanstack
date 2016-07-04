@@ -1,0 +1,21 @@
+extends layout
+
+block body
+  //- error handling - if rootScope of error
+  div.error(ng-show="error",class="alert alert-danger row")
+    span {{ error.message }}
+
+
+  //- include ./includes/nav.jade
+  div
+    <menu-widget></menu-widget>
+
+  div(ng-view)
+
+  div
+    | Angular seed app: v
+    span(app-version)
+    | -0 {{username}}
+
+
+  include ./includes/footer.jade

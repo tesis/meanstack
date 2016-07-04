@@ -1,0 +1,36 @@
+{
+  "name": "TeamCo",
+  "version": "1.0",
+  "author": "Tereza Simcic",
+  "homepage": "http://tesispro.net",
+  "private": true,
+  "description": "mean stack application with jade template engine"
+  "scripts": {
+    "start": "node_modules/.bin/supervisor ./bin/www",
+    "test": "make test"
+  },
+  "dependencies": {
+    "express": "~4.13.4",
+    "static-favicon": "^1.0.0",
+    "morgan": "^1.0.0",
+    "cookie-parser": "^1.0.1",
+    "body-parser": "^1.0.0",
+    "debug": "^0.7.4",
+    "jade": "^1.3.0",
+    "mongodb": "^2.1.18",
+    "mongoose": "^4.4.20",
+    "supervisor": "^0.11.0",
+    "express-session": "^1.13.0",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^1.0.0",
+    "jsonwebtoken": "^7.0.1",
+    "nodemailer": "^2.4.2",
+    "activator": "^2.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3 ",
+    "should": "^9.0.2",
+    "superagent": "^1.8.3"
+  }
+}

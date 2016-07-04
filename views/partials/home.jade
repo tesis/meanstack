@@ -1,0 +1,5 @@
+div.jumbotron.text-center
+  <h1>{{ vm.title }}</h1>
+  p.lead {{ vm.message }}
+  p(ng-show="loggedIn") Logged
+  p(ng-show="!loggedIn") NOT Logged in

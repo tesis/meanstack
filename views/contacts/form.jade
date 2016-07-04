@@ -1,0 +1,30 @@
+div.row.col-md-12(data-ng-show="cCtrl.formShow")
+  form.form-horizontal.col-md-6(novalidate, autocomplete="off")
+    .form-group
+      label.control-label.col-xs-2 Username
+      .col-xs-10
+        input.form-control(type="text", name="username", placeholder="Enter Username", data-ng-model="cCtrl.contact.username", data-ng-minlength="3", required="required")
+    .form-group
+      label.control-label.col-xs-2 First Name
+      .col-xs-10
+        input.form-control(type="text", name="fname", placeholder="Enter First Name", data-ng-model="cCtrl.contact.fname", data-ng-minlength="3", required="required")
+    .form-group
+      label.control-label.col-xs-2 Last Name
+      .col-xs-10
+        input.form-control(type="text", name="lname", placeholder="Enter Last Name", data-ng-model="cCtrl.contact.lname", data-ng-minlength="3", required="required")
+    .form-group
+      label.control-label.col-xs-2 Email
+      .col-xs-10
+        input.form-control(type="text", name="email", placeholder="Enter Email", data-ng-model="cCtrl.contact.email", data-ng-minlength="3", required="required")
+    .form-group
+      label.control-label.col-xs-2 Phone
+      .col-xs-10
+        input.form-control(type="text", name="phone", placeholder="Enter PhoneNo", data-ng-model="cCtrl.contact.phone", data-ng-minlength="3", required="required")
+
+
+
+    .form-group.text-right
+      .col-xs-offset-2.col-xs-10
+        button.btn.btn-primary(data-ng-show="!cCtrl.btnShow", data-ng-click="cCtrl.addContact()") Add Contact
+        button.btn.btn-info(data-ng-show="cCtrl.btnShow", data-ng-click="cCtrl.update()") Update Contact
+        button.btn.btn-default(data-ng-click="cCtrl.formShow=false") Cancel
