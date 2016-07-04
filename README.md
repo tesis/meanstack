@@ -1,6 +1,8 @@
-# meanstack
-meanstack project with jade 
-authentication with passport and jwt, using interceptors
+# TeamCo meanstack project
+
+    meanstack project with jade template engine
+    authentication with passport and jwt, using interceptors
+    CRUD for customers
 
 # MEAN mongoDb Express angularJS nodeJS Project
 
@@ -8,21 +10,21 @@ authentication with passport and jwt, using interceptors
 ## Objectives
 
 MongoDb Express AngularJs NodeJS Project (MEAN)
- - authentication (login) system (reset password to be done)
- - connecting with mongoDb using mongoose
+ - authentication system (WIP: reset password / confirmation )
+ - mongoDb using mongoose
  - Express version should be at least 4.1
  - restricted access for CMS (part of the project)
  - non logged in users can access only basic pages
  - logged in users can add / edit / delete customers, access tasks pages
  - CRUD provided for users and customers
  (at this stage)
- - WIP: 
- -- users can only be registered with invitation
- -- users will be able to assign tasks, etc...
+ - WIP:
+    - users can only be registered with invitation
+    - users will be able to assign tasks, etc...
 
 
 
-## Structure
+#### Structure
 -------------------------
 access.log
 app.js
@@ -31,123 +33,37 @@ Makefile
 package.json
 README.md
 
+    ./bin:
+         www
 
-./bin:
-www
+    ./client:
 
-./client:
-controllers
-directives
-main.js
-services
+        controllers
+        directives
+        main.js
+        services
 
-./client/controllers:
-auth.controller.js
-contacts.controller.js
-controller.js
-dashboard.controller.js
-tasks.controller.js
+    ./public:
 
-./client/directives:
-contacts.directive.js
-directive.js
-errors.directive.js
-menu.directive.js
+        fonts
+        images
+        javascripts
+        stylesheets
 
-./client/services:
-auth.service.js
-contacts.service.js
-services.js
-
-./public:
-fonts
-images
-javascripts
-stylesheets
-
-./public/fonts:
-glyphicons-halflings-regular.eot
-glyphicons-halflings-regular.svg
-glyphicons-halflings-regular.ttf
-glyphicons-halflings-regular.woff
-glyphicons-halflings-regular.woff2
-
-./public/images:
-
-./public/javascripts:
-angular-1.5.6.min.js
-angular-route.min.js
-angular-route.min.js.map
-ui-bootstrap-tpls-1.3.3.min.js
-
-./public/stylesheets:
-bootstrap3.3.6.min.css
-style.css
-
-./server:
-api
-config
-models
-routes
-
-./server/api:
-auth.js
-contacts.js
-index.js
-
-./server/config:
-passport.js
-
-./server/models:
-auth.js
-contacts.js
-
-./server/routes:
-index.js
-
-./views:
-auth
-contacts
-error.jade
-includes
-index.jade
-layout.jade
-partials
-tasks
-
-./views/auth:
-login.jade
-register1.jade
-register.jade
-register-show-errors.jade
-
-./views/contacts:
-form.jade
-index.jade
-list.jade
-
-./views/includes:
-footer.jade
-header.jade
-nav.jade
-
-./views/partials:
-about.jade
-cms.jade
-contact.jade
-contacts1.jade
-error.jade
-home.jade
-login1.jade
-register1.jade
-
-./views/tasks:
-index.jade
+    ./server:
+        api
+        config
+        models
+        routes
+    ./views:
+        auth
+        contacts
+        includes
+        partials
+        tasks
 
 
-
-
-Final package.json:
+### Final package.json:
 ```sh
 {
   "name": "TeamCo",
@@ -186,10 +102,27 @@ Final package.json:
 }
 ```
 
+### Usage
 
+**1 rename env.sample.json to env.json and add your credentials / preferences**
 
-## Added AngularJS for client side
+**2 install node modules**
 
+```sh
+npm install
+```
 
+**3 run the project**
 
+```sh
+npm start
+```
 
+### Tests
+- create new folder test
+- add tests
+- provided Makefile script for tests, run:
+
+```sh
+test
+```
