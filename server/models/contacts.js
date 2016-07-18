@@ -5,28 +5,56 @@
 'use strict';
 
 var mongoose = require('mongoose');
-//mongoose.set('debug', true);
-mongoose.set('debug', function (collectionName, method, query, doc, options) {
-  // console.log(__filename + ' mongoose DEBUG: ' );
-  // console.log(collectionName);
-  // console.log(query);
-});
 
+// Custom email validation
+function validateEmail(email) {
+  return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
+}
 // Add schema
-// unique username
-// required all except phone and dates
 var ContactsSchema = new mongoose.Schema({
-    username: { type: String, unique: true, sparse: true  , required: true },
-    fname: { type: String, sparse: true  },
-    lname: { type: String, sparse: true , required: true },
-    email: { type: String, sparse: true,  required: true,
-      validate: function(email) {
-        return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
-      }
+    username: {
+      type: String,
+      unique: true,
+      sparse: true  ,
+      required: true,
+      trim: true,
+      default:'',
     },
-    phone: String,
-    created: { type: Date, default: Date.now },
-    updated: { type: Date, default: Date.now }
+    fname: {
+      type: String,
+      sparse: true,
+      required: true,
+      trim: true,
+      default:'',
+    },
+    lname: {
+      type: String,
+      sparse: true ,
+      required: true,
+      trim: true,
+      default:'',
+    },
+    email: {
+      type: String,
+      sparse: true,
+      required: true,
+      trim: true,
+      default:'',
+      validate: [validateEmail, 'Email should be valid']
+    },
+    phone: {
+      type:String,
+      trim: true,
+      default:'',
+    },
+    created: {
+      type: Date,
+      default: Date.now
+    },
+    updated: {
+      type: Date,
+      default: Date.now
+    }
 });
 
 // Make this available in Node applications

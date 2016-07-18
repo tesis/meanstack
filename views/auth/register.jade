@@ -8,10 +8,24 @@
 
     form(name="form" role="form", data-ng-submit="ctrl.submitForm(form.$valid)", method="post" novalidate, autocomplete="off")
       .form-group(show-errors)
-          input.form-control(type="text", id="username", name="username", placeholder="Enter Username", data-ng-model="ctrl.user.username", data-ng-minlength="3", required="required" )
+        input.form-control(type="text", name="username", placeholder="Enter Username", data-ng-model="ctrl.user.username", data-ng-minlength="3", required="required" username)
+
+        span.help-inline.error(data-ng-show = "form.$dirty &&  form.username.$error.required") Username required
+        span.help-inline.error(data-ng-show = "form.$dirty &&  form.username.$error.minlength") Username too short
+        span.help-inline.error(data-ng-show = "form.username.$error.username") Username already taken
+
 
       .form-group(show-errors)
-        input.form-control(type="password", name="password", placeholder="Password", data-ng-model="ctrl.user.password", data-ng-minlength="4",required="required")
+        input.form-control(type="password", name="password", placeholder="Password", data-ng-model="ctrl.user.password", data-ng-minlength="6",ng-maxlength="16", required="required")
+
+        span.help-inline.error(data-ng-show = "form.$dirty &&  form.password.$error.required") Password required
+        span.help-inline.error(data-ng-show = "form.$dirty &&  form.password.$error.minlength || form.password.$error.maxlength") Password must be 6-16 character long
+
+      .form-group(show-errors)
+        input.form-control(type="password", name="repeatPassword", placeholder="Repeat Password", data-ng-model="ctrl.user.repeatPassword", data-ng-minlength="4",required="required", equal-to="ctrl.user.password")
+
+        span.help-inline.error(data-ng-show = "form.$dirty && form.repeatPassword.$error.equalTo") Password must be equal
+
 
       button.btn.btn-default(type="submit") Submit
 

@@ -1,5 +1,5 @@
-// Register a module
-angular.module('myApp', ['ngRoute','ui.bootstrap']);
+// Register a main module
+angular.module('myApp', ['ngRoute','ui.bootstrap','ngConfirmModule']);
 
 // Config
 angular.module('myApp')
@@ -10,6 +10,7 @@ angular.module('myApp')
 config.$inject = ['$routeProvider', '$locationProvider', '$httpProvider'];
 
 function config($routeProvider, $locationProvider, $httpProvider) {
+  // console.log($locationProvider)
   $routeProvider
     .when('/', {
       templateUrl: 'partials/home',
@@ -49,21 +50,28 @@ function config($routeProvider, $locationProvider, $httpProvider) {
     })
     .when('/error', {
       templateUrl: 'partials/error',
-      controller: 'MainController',
-      controller: 'MainCtrl',
+      controller: 'ErrorController',
+      controllerAs: 'vm',
       access: {restricted: false}
     })
     // CMS with restricted access
     .when('/CMS', {
       templateUrl: 'partials/cms',
       controller: 'DashboardController',
-      controllerAs: 'dCtrl',
+      controllerAs: 'cms',
       access: {restricted: true}
     })
 
     // Contacts
     .when('/CMS/contacts', {
       templateUrl: 'contacts/index',
+      controller: 'ContactsController',
+      controllerAs: 'cCtrl',
+      access: {restricted: true}
+    })
+    //get a contact by id - list tasks, caseworks, etc
+    .when('/CMS/contacts/:id', {
+      templateUrl: 'contacts/contact',
       controller: 'ContactsController',
       controllerAs: 'cCtrl',
       access: {restricted: true}
@@ -75,17 +83,26 @@ function config($routeProvider, $locationProvider, $httpProvider) {
       controllerAs: 'tCtrl',
       access: {restricted: true}
     })
+    // not in use yet
+    .when('/CMS/tasks/:id', {
+      templateUrl: 'tasks/templ',
+      controller: 'TasksController',
+      controllerAs: 'tCtrl',
+      access: {restricted: true}
+    })
+
+    // If route does not exist - go to error page
     .otherwise({
       redirectTo: '/error',
       access: {restricted: false}
     });
-    // Add base tag in head 
+    // Add base tag in head
   $locationProvider.html5Mode({
     enabled: true,
     requireBase: true
   });
 
-  $httpProvider.interceptors.push('authInterceptor');
+  $httpProvider.interceptors.push('httpInterceptor');
 }
 
 
@@ -111,6 +128,6 @@ function run($rootScope, $location, $route, AuthService) {
       $route.reload();
     }
 
-
   });
 }
+

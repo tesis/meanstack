@@ -1,0 +1,32 @@
+.container
+  h1 Contacts Details
+  div.row.col-md-12.mtb-box
+    //- notifications when contact is saved/updated/deleted
+    div(uib-alert  ng-repeat="alert in cCtrl.alerts", dismiss-on-timeout="5000", type="{{alert.type}}", close="cCtrl.closeAlert()" ) {{alert.msg}}
+
+  div.row.col-md-12
+    h2 Username {{ cCtrl.contact.username }}
+
+    p.lead Name {{ cCtrl.contact.fname }} {{ cCtrl.contact.lname }}
+    p.lead Email {{ cCtrl.contact.email }}
+    p.lead Phone {{ cCtrl.contact.phone }}
+  div.row.col-md-12
+    h2 Tasks
+
+    ul.table
+        li.table-row(data-ng-repeat="(i,task) in cCtrl.tasks | filter:cCtrl.paginate")
+          div.wrapper
+            div.title
+              h3 <span class="bold">Problem:</span> {{ task.title }}
+                a.small.pull-right(href="casework/{{ task.caseworkId }}") Related Casework
+            div.body
+              div.table-cell
+                p {{ task.details }}
+              div.table-cell
+                p {{ task.created | date:"dd/MM/yyyy" }} {{ task.completed  | date:"dd/MM/yyyy" }}
+              div.table-cell
+                p.status(uib-tooltip="Task {{ task.taskStatus }}", tooltip="tooltip", tooltip-placement="bottom")
+                  span(class="{{ task.taskStatus }}", data-ng-click="cCtrl.updateTaskStatus(task)")
+
+    div(uib-pagination, data-ng-model="cCtrl.currentPage", total-items="cCtrl.totalItems", items-per-page="cCtrl.numPerPage", boundary-links="true",  class="pagination-sm pull-right", previous-text="<", next-text=">", first-text="<<", last-text=">>", force-ellipses="true", boundary-link-numbers="true", data-ng-change="cCtrl.pageChanged()")
+

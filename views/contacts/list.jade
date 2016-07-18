@@ -1,3 +1,5 @@
+//- <pre>The selected page no: {{cCtrl.currentPage}}</pre>
+
 div.row.col-md-12
     table.table.table-striped.table-hover
       thead
@@ -12,13 +14,14 @@ div.row.col-md-12
           th(data-ng-click="cCtrl.sort('phone')") Phone
            span.glyphicon.sort-icon(data-ng-show="cCtrl.sortKey === 'phone'", ng-class="{'glyphicon-chevron-up':cCtrl.reverse, 'glyphicon-chevron-down':!cCtrl.reverse}")
       tbody
-        tr(data-ng-repeat="(i,contact) in cCtrl.contactList | filter:cCtrl.search  | orderBy:cCtrl.sortKey| filter:cCtrl.paginate")
+        tr(data-ng-repeat="(i,contact) in cCtrl.contactList | filter:cCtrl.search  | orderBy:cCtrl.sortKey")
           td {{ i+1 }}
           td {{ contact.username}}
           td {{ contact.fname}}
           td {{ contact.email}}
           td {{ contact.phone}}
           td
-            button.btn.btn-danger(data-ng-click="cCtrl.remove(contact._id)") Delete
+            button.btn.btn-danger(ng-confirm-message="Are you sure to delete contact?" ,ng-confirm-click="cCtrl.remove(contact._id)" ) Delete
           td
             button.btn.btn-warning(data-ng-click="cCtrl.edit(contact._id)") Edit
+div(uib-pagination, data-ng-model="cCtrl.currentPage", total-items="cCtrl.totalItems", items-per-page="cCtrl.numPerPage", boundary-links="true",  class="pagination-sm pull-right", previous-text="<", next-text=">", first-text="<<", last-text=">>", force-ellipses="true", boundary-link-numbers="true", data-ng-change="cCtrl.pageChanged()")

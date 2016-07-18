@@ -10,7 +10,7 @@
 ## Objectives
 
 MongoDb Express AngularJs NodeJS Project (MEAN)
- - authentication system (WIP: reset password / confirmation )
+ - authentication system 
  - mongoDb using mongoose
  - Express version should be at least 4.1
  - restricted access for CMS (part of the project)
@@ -19,6 +19,7 @@ MongoDb Express AngularJs NodeJS Project (MEAN)
  - CRUD provided for users and customers
  (at this stage)
  - WIP:
+    - login sytem (reset password)
     - users can only be registered with invitation
     - users will be able to assign tasks, etc...
 
@@ -66,27 +67,26 @@ README.md
 ### Final package.json:
 ```sh
 {
-  "name": "TeamCo",
-  "version": "1.0",
-  "author": "Tereza Simcic",
-  "homepage": "http://tesispro.net",
+  "name": "openshift-cartridge-nodejs-template",
+  "version": "1.0.1",
+  "description": "Custom Node.js cartridge for OpenShift - sample application",
   "private": true,
-  "description": "mean stack application with jade template engine, authentication with passport and jwt"
+  "main": "start.js",
   "scripts": {
-    "start": "node_modules/.bin/supervisor ./bin/www",
-    "test": "make test"
+    "start": "node --use_strict start.js"
   },
+  "author": "Tereza Simcic <tereza.simcic@gmail.com>",
+  "license": "ISC",
   "dependencies": {
     "express": "~4.13.4",
-    "static-favicon": "^1.0.0",
-    "morgan": "^1.0.0",
-    "cookie-parser": "^1.0.1",
-    "body-parser": "^1.0.0",
-    "debug": "^0.7.4",
-    "jade": "^1.3.0",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4",
+    "jade": "~1.3.0",
     "mongodb": "^2.1.18",
     "mongoose": "^4.4.20",
-    "supervisor": "^0.11.0",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^1.0.0",
@@ -95,11 +95,11 @@ README.md
     "activator": "^2.3.0"
   },
   "devDependencies": {
-    "mocha": "^2.5.3 ",
-    "should": "^9.0.2",
-    "superagent": "^1.8.3"
+    "mocha": "~2.5.3 ",
+    "should": "~9.0.2"
   }
 }
+
 ```
 
 ### Usage
@@ -111,18 +111,28 @@ README.md
 ```sh
 npm install
 ```
+check if bower is installed and then run it (it is not used in the project for now)
+```sh
+npm search bower
+npm install bower --save-dev install it if not installed
+bower install
+bower init
+bower start
 
-**3 run the project**
+```
+**3A run the project locally **
 
 ```sh
-npm start
+node --use_strict start.js
 ```
+*** open in browswer: http://localhost:8080
 
+**3B run on the web: http://njs-tesispro.rhcloud.com
 ### Tests
 - create new folder test
 - add tests
 - provided Makefile script for tests, run:
 
 ```sh
-test
+make test
 ```

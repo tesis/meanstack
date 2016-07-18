@@ -1,18 +1,21 @@
 .container
   h1 Contacts List
-  div.row.col-md-12
+  div.row.col-md-12.mtb-box
+    //- notifications when contact is saved/updated/deleted
+    div(uib-alert  ng-repeat="alert in cCtrl.alerts", dismiss-on-timeout="5000", type="{{alert.type}}", close="cCtrl.closeAlert()" ) {{alert.msg}}
+
     div.pull-right
       form.form-inline.pull-left
         .form-group
-          label
-            span.glyphicon.glyphicon-search
           input.form-control(type="text", data-ng-model="cCtrl.search", placeholder="Search")
-          <uib-pagination boundary-links="true" total-items="cCtrl.totalItems" ng-model="cCtrl.currentPage" class="pagination-sm pull-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+          label
+            span.pl-10.glyphicon.glyphicon-search
 
     div.pull-left
-      button.btn.btn-info(data-ng-click="cCtrl.formShow=true") New contact
-      button.btn.btn-info(data-ng-show="cCtrl.formShow", data-ng-click="cCtrl.formShow=false") Close
+      button.btn.btn-info(data-ng-click="cCtrl.openForm()") New contact
+      button.btn.btn-info(data-ng-show="cCtrl.formShow", data-ng-click="cCtrl.closeForm()") Close
 
     <contact-form></contact-form>
 
   <contact-list /></contact-list>
+

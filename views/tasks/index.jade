@@ -1,3 +1,47 @@
-.container
-  h1 Tasks Index {{ user.username}}
+.container-fluid
+  div.jumbotron.text-center
+    h1 Tasks Index {{ username }}
+
+  div.col-md-12.mtb-box
+    div.col-md-2.col-sm-12
+
+      form(name="myForm")
+        label.block List of users
+        select(name="userSelect",
+              data-ng-model="tCtrl.userSelect",
+              data-ng-options="user as user.username for user in tCtrl.userList track by user.username"
+              data-ng-change="tCtrl.taskListByUser(tCtrl.userSelect._id)"
+              )
+
+    div.col-md-10.col-sm-12
+      //- Add alerts
+      div(uib-alert  ng-repeat="alert in tCtrl.alerts", dismiss-on-timeout="5000", type="{{alert.type}}", close="tCtrl.closeAlert()" ) {{alert.msg}}
+
+      h2.lead {{ " Tasks for user: "}} {{ tCtrl.userSelect.username }}
+
+      p.lead.animate-show(data-ng-hide = "tCtrl.tasks.length") No tasks for this user.
+
+      ul.table
+        li.table-row(data-ng-repeat="(i,task) in tCtrl.tasks")
+          div.wrapper
+            div.title
+              h3 <span class="bold">Problem:</span> {{ task.title }}
+                a.small.pull-right(href="casework/{{ task.caseworkId }}") Related Casework
+            div.body
+              div.table-cell
+                p {{ task.details }}
+              div.table-cell
+                p
+                  a(href="/CMS/contacts/{{ task.contactId }}") {{ task.contact }}
+              div.table-cell
+                p {{ task.created | date:"dd/MM/yyyy" }} {{ task.completed  | date:"dd/MM/yyyy" }}
+              div.table-cell
+                p.status(uib-tooltip="Task {{ task.taskStatus }}", tooltip="tooltip", tooltip-placement="bottom", data-ng-click="tCtrl.updateTaskStatus(task)")
+                  span(class="{{ task.taskStatus }}")
+
+  //- Add pagination
+  div(uib-pagination, data-ng-model="tCtrl.currentPage", total-items="tCtrl.totalItems", items-per-page="tCtrl.numPerPage", boundary-links="true",  class="pagination-sm pull-right", previous-text="<", next-text=">", first-text="<<", last-text=">>", force-ellipses="true", boundary-link-numbers="true", data-ng-change="tCtrl.pageChanged()")
+
+
+
 

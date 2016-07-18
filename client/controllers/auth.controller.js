@@ -52,6 +52,7 @@
             vm.successMessage = "Successfully logged in";
             $timeout(function() {
               $location.path('/');
+
               }, 2000);
           })
           // handle error

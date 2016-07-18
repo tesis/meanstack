@@ -34,6 +34,16 @@
       inputNgEl.bind('blur', function() {
         el.toggleClass('has-error', formCtrl[inputName].$invalid);
       })
+
+      scope.$on('show-errors-check-validity', function() {
+        el.toggleClass('has-error', formCtrl[inputName].$invalid);
+      });
+
+      scope.$on('show-errors-reset', function() {
+        $timeout(function() {
+          el.removeClass('has-error');
+        }, 0, false);
+      });
     }
 
   }

@@ -7,7 +7,7 @@
 
     form(name="form" role="form", data-ng-submit="ctrl.submitForm(form.$valid)", method="post" novalidate, autocomplete="off")
       .form-group(show-errors)
-          input.form-control(type="text", name="username", placeholder="Enter Username", data-ng-model="ctrl.user.username", data-ng-minlength="3", required="required")
+        input.form-control(type="text", name="username", placeholder="Enter Username", data-ng-model="ctrl.user.username", data-ng-minlength="3", required="required")
 
       .form-group(show-errors)
         input.form-control(type="password", name="password", placeholder="Password", data-ng-model="ctrl.user.password", data-ng-minlength="4",required="required")

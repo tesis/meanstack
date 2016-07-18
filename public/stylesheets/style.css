@@ -6,11 +6,150 @@ body {
 a {
   color: #00B7FF;
 }
-.sort-icon {
+ul{
+   padding-inline-start: 0 !important;
+}
+.color-red{
+  color: #fa787e;
+}
+.color-green{
+  color: #78fa89;
+}
+.sort-icon, .icon-req {
     font-size: 9px;
     margin-left: 5px;
 }
+.icon-req{
+  color: #fa787e;
+  top: -3px;
+}
 
+p.status{
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+.completed, .uncompleted{
+  font-size: 2em;
+  text-align: center;
+  height:40px;
+  width:100%;
+  margin:6px;
+  cursor: pointer;
+}
+.completed:before, .uncompleted:before{
+  font-family:"Glyphicons Halflings";
+  line-height:1;
+  margin:5px;
+}
+.completed {
+  color: #78fa89;
+}
+
+.completed:before{
+  content:"\e013";
+}
+
+.uncompleted {
+  color: #fa787e;
+}
+
+.uncompleted:before{
+  content:"\e014";
+}
+/*------------------------------------------------------------------
+  xxx:Animations
+------------------------------------------------------------------*/
+.animate-show {
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+}
+
+.animate-show.ng-hide {
+  transition: all linear 0.5s;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0.3;
+  padding: 0 10px;
+}
+/*------------------------------------------------------------------
+  xxx:loading spinner
+------------------------------------------------------------------*/
+.fa-spin {  animation: 2s linear 0s normal none infinite running fa-spin;}
+@keyframes fa-spin {0% {    transform: rotate(0deg);}100% {  transform: rotate(359deg);}}
+.loading, .loader {
+  background: rgba(0, 0, 0, 0.15) ;
+  border-radius: 10px;
+  color: #000000;
+  display: inline-block;
+  font-size: 20px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 2px;
+  width: 20px;
+  z-index: 1000;
+  position:relative;
+
+  font-family: FontAwesome;
+  font-feature-settings: normal;
+  font-kerning: auto;
+  font-language-override: normal;
+  font-size: inherit;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-synthesis: weight style;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  text-rendering: auto;
+  transform: translate(0px, 0px);
+}
+.loading:after{
+  position:absolute;
+  content: '*';
+  top:2px;
+  left:3px;
+}
+/*------------------------------------------------------------------
+  xxx:Table style
+------------------------------------------------------------------*/
+.table{
+  display: table;
+  table-layout: fixed;
+  width:100%;
+}
+.table-row{
+  display: table-row;
+  height: 100%;
+}
+.table-row .wrapper {
+  display: inline-block;
+  height: 100%;
+  min-height: 200px;
+  position: relative;
+  width: 100%;
+}
+.table-row .title, .table-row .body{
+  /*top:0;
+  position: absolute;*/
+  width:100%;
+  margin: 10px;
+}
+.table-row .body{
+  height: 100%;
+  top:40px;
+}
+.table-cell{
+  display: table-cell;
+  padding: 40px 20px;
+}
+/*------------------------------------------------------------------
+  xxx:Tables
+------------------------------------------------------------------*/
 th {
     cursor:pointer;
 }
@@ -46,3 +185,193 @@ li span.hello {
 span.error{
   color: #fa787e;
 }
+/*------------------------------------------------------------------
+  xxx: Bootstrap override
+------------------------------------------------------------------*/
+.jumbotron {
+  padding: 2em 1em !important;
+  margin: 0 !important;
+  background-color: rgba(0,0,0,0.08) !important;
+}
+a:focus, a:hover {
+  text-decoration: none !important;
+  color: #23527c;
+}
+/*-------------------- styles from hrweb ---------------*/
+
+/*------------------------------------------------------------------
+  xxx:General
+------------------------------------------------------------------*/
+.btn-primary {
+  background-color: rgba(0, 85, 150, 0.9);
+}
+.width100p {
+  width: 100%;
+}
+.height500px {
+  height: 500px;
+}
+.container80p {
+  width: 80% !important;
+}
+
+.clearMP {
+  margin: 0;
+  padding: 0;
+}
+/*------------------------------------------------------------------
+  xxx:Page Wrappers
+------------------------------------------------------------------*/
+#page-wrapper {
+  width: 100% !important;
+  overflow: hidden;
+  z-index: 2;
+  margin-bottom: 140px;
+  position: relative;
+  display: block;
+  background: #f9f9f9;
+}
+.wh-shadow {
+  text-shadow: 1px 1px #fff;
+}
+/* Wrap the content in fixed width container */
+.page-container {
+  width: 1170px;
+}
+/* Wrap the content in fluid container */
+.container-fluid {
+  width: 80%;
+  margin: 0 auto;
+}
+/* Wrap the content - generic */
+.page-section {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  clear: both;
+}
+.w50p {
+  width: 50% !important;
+}
+
+/*------------------------------------------------------------------
+  xxx:PADDINGS MARGINS
+------------------------------------------------------------------*/
+.p-20 {
+  padding: 20px !important;
+}
+.p-40 {
+  padding: 40px !important;
+}
+.pt-20 {
+  padding-top: 20px;
+}
+.pt-40 {
+  padding-top: 40px;
+}
+.pb-20 {
+  padding-bottom: 20px;
+}
+.pb-40 {
+  padding-bottom: 40px;
+}
+.pl-10 {
+  padding-left: 10px;
+}
+.pl-20 {
+  padding-left: 20px;
+}
+.pr-20 {
+  padding-right: 20px;
+}
+.wide-padding {
+  padding: 100px 0 120px !important;
+}
+.wide-padding-half {
+  padding: 80px 0 60px !important;
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+/*.mt100, */
+.mt-10 {
+  margin-top: 10px !important;
+}
+.mt-20 {
+  margin-top: 20px !important;
+}
+.mt-40 {
+  margin-top: 40px !important;
+}
+.mt-100 {
+  margin-top: 100px !important;
+}
+.mr-15 {
+  margin-right: 15px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mb-40 {
+  margin-bottom: 40px !important;
+}
+.mb-100 {
+  margin-bottom: 100px !important;
+}
+.mtb-box {
+  margin: 25px 0 40px;
+}
+.pm-30 {
+  padding: 20px 30px;
+  margin: 0 auto;
+  width: 100%;
+}
+.header.bg-scroll .pm-30 {
+  padding: 10px 30px !important;
+}
+/*------------------------------------------------------------------
+  xxx:Text
+------------------------------------------------------------------*/
+.text-large {
+  font-size: 2.5em !important;
+  line-height: 2 !important;
+}
+.text-medium {
+  font-size: 2em !important;
+  line-height: 2 !important;
+}
+.text-wide {
+  letter-spacing: 2px;
+}
+.right {
+  float: right;
+}
+.relative {
+  position: relative;
+}
+.lh-2{
+  line-height: 2em !important;
+}
+/*------------------------------------------------------------------
+  xxx:Sub navigation
+------------------------------------------------------------------*/
+.ul-inner-nav{
+  margin:1em 0;
+  font-size: 1.2em;
+  line-height: 2;
+}
+
+
+/*------------------------------------------------------------------
+  xxx:animation - not in use
+------------------------------------------------------------------*/
+ .my-form {
+   transition:all linear 0.5s;
+   background: transparent;
+ }
+ .my-form.ng-invalid {
+   background: red;
+ }

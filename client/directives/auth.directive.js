@@ -1,5 +1,5 @@
 /**
- * contacts.directive.js
+ * auth.directive.js
  *
  * no globals
  */
@@ -10,47 +10,31 @@
 
   angular
     .module('myApp')
-    .directive("contactForm", contactForm)
-    .directive("contactList", contactList)
+    .directive('equalTo', equalTo)
     .directive("username", username)
     .directive("email", checkEmail)
-    .directive("confirm", confirm)
 
-  // Display contact form to add/edit contact
-  function contactForm() {
-    var directive = {
-      restrict: "E",
-      transclude: true,
-      replace: false,
-      templateUrl: "contacts/form",
-    };
-
-    return directive;
-  }
-
-  // Display a list of contacts
-  function contactList() {
-    var directive =  {
-      restrict: "E",
-      transclude: true,
-      replace: false,
-      templateUrl: "contacts/list",
-    };
-
-    return directive;
-  }
-  // Native confirm delete
-  // usage
-  // button.btn.btn-danger(confirm="Are you sure?", confirmed-click="cCtrl.remove(contact._id)") Delete
-  function confirm() {
+  function equalTo(){
     return {
-      link: function (scope, element, attr) {
-        var msg = attr.confirm;
-        var clickAction = attr.confirmedClick;
-        element.bind('click', function (event) {
-          if (window.confirm(msg)) {
-            scope.$eval(clickAction)
-          }
+      require: 'ngModel',
+      link: function (scope, elem, attrs, ctrl) {
+        // Check if attribute exists
+        if (!attrs.equalTo) {
+          return;
+        }
+        scope.$watch(attrs.equalTo, function (value) {
+          if( value === ctrl.$viewValue && value !== undefined) {
+           ctrl.$setValidity('equalTo', true);
+           ctrl.$setValidity("parse",false);
+         }
+         else {
+           ctrl.$setValidity('equalTo', false);
+         }
+       });
+        ctrl.$parsers.push(function (value) {
+          var isValid = value === scope.$eval(attrs.equalTo);
+          ctrl.$setValidity('equalTo', isValid);
+          return isValid ? value : false;
         });
       }
     };
@@ -71,12 +55,10 @@
           var def = $q.defer();
 
           $timeout(function() {
-            console.log(modelValue);
-            $http.get('/api/checkUsernameContact/' + modelValue)
+            $http.get('/api/checkUsernameAuth/' + modelValue)
               // handle success
               .success(function (data, status) {
                 if(status === 200 && data !== null){
-                  // def.resolve(data);
                   def.reject();
                 }
                 else {
@@ -110,7 +92,7 @@
           var def = $q.defer();
 
           $timeout(function() {
-            $http.get('/api/checkEmailContact/' + modelValue)
+            $http.get('/api/checkEmailAuth/' + modelValue)
               // handle success
               .success(function (data, status) {
                 if(status === 200 && data !== null){
@@ -135,3 +117,4 @@
   }
 
 })();
+

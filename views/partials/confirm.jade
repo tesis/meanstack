@@ -1,0 +1,10 @@
+div.modal-content
+  div.modal-header
+    button.close(type="button",data-dismiss="modal",aria-hidden=true) &times;
+    h4.modal-title Confirmation
+  div.modal-body
+    p Are you sure?
+  div.modal-footer
+    button.btn.btn-primary(data-ng-click="ok()") Confirm
+    button.btn.btn-warning(data-ng-click="cancel()") Cancel
+

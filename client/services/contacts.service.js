@@ -14,95 +14,120 @@
   contactsService.$inject = ['$q', '$http'];
 
   function contactsService($q, $http) {
+    var srv = this;
+    srv.endpoint = '/api/contactList';
+    srv.endpointContacts = '/api/contacts';
+    srv.msg = {
+      notFound: " Record not found ",
+      notUpdated: " Record not updated ",
+      notSaved: " Record not saved ",
+      notDeleted: " Record not deleted ",
+      saved: " Record successfully saved ",
+      updated: " Record successfully updated ",
+      deleted: " Record successfully deleted ",
+      empty: " List is empty ",
+      generalErr: " An error occurred ",
+    }
 
-    this.refresh = function(){
+    srv.listContacts = function(limit, skip){
+      let endpoint = srv.endpoint + '/' + limit;
+      if(skip !== undefined){
+        endpoint += '/'+ skip ;
+        // console.log('skip and limit defined ' + skip);
+      }
       // A new instance of deferred
-        var deferred = $q.defer();
+        let deferred = $q.defer();
         // send a post request to the server
-        $http.get('/api/contactList')
+        $http.get(endpoint)
           // handle success
           .success(function (data, status) {
             if(status === 200){
+              // data with docs and count
               deferred.resolve(data);
             }
             else {
-              deferred.reject('Contacts Not found');
+              deferred.reject(srv.msg.empty);
             }
           })
           // handle error
-          .error(function (data, status) {
-            // deferred.reject - with or without reason
-            deferred.reject('Contacts.error');
+          .error(function (fallback) {
+            if(fallback === '' || fallback === 'undefined'){
+              fallback = srv.msg.generalErr;
+            }
+            deferred.reject(fallback);
           });
 
         // return promise object
         return deferred.promise;
     }
 
-    this.editContact = function(contactId){
-        var deferred = $q.defer();
-        $http.get('/api/contactList/' + contactId)
+    srv.getContact = function(id){
+        let deferred = $q.defer();
+        $http.get(srv.endpointContacts + '/' + id)
           .success(function (data, status) {
             if(status === 200){
               deferred.resolve(data);
             }
             else {
-              deferred.reject('Contact Not found' + contactId);
+              deferred.reject(srv.msg.notFound);
             }
           })
-          .error(function (data, status) {
-            deferred.reject('Contact not found ' + contactId);
-          });
 
         return deferred.promise;
     }
-    this.addContact = function(contact){
-      var deferred = $q.defer();
-      $http.post('/api/contactList', contact)
+    /*-------------------- CRUD ----------------------*/
+    // id = contactId
+    // obj = contact object
+
+    srv.edit = srv.getContact;
+
+    srv.create = function(obj){
+      let deferred = $q.defer();
+      $http.post(srv.endpoint , obj)
         .success(function (data, status) {
           if(status === 200){
             deferred.resolve(data);
           }
           else {
-            deferred.reject('Contact Not saved');
+            deferred.reject(srv.msg.notSaved);
           }
         })
-        .error(function (data, status) {
-          deferred.reject('Contact not saved error');
+        .error(function (fallback) {
+          deferred.reject(fallback);
         });
 
       return deferred.promise;
     }
-    this.updateContact = function(contactId, contact){
-      var deferred = $q.defer();
-      $http.put('/api/contactList/'+contactId, contact)
+    srv.update = function(obj){
+      let deferred = $q.defer();
+      $http.put(srv.endpoint + '/'+obj._id, obj)
         .success(function (data, status) {
           if(status === 200){
             deferred.resolve(data);
           }
           else {
-            deferred.reject('Contact Not updated' + contactId);
+            deferred.reject(srv.msg.notSaved);
           }
         })
-        .error(function (data, status) {
-          deferred.reject('Contact not updated error');
+        .error(function (fallback) {
+          deferred.reject(fallback);
         });
 
       return deferred.promise;
     }
-    this.deleteContact = function(contactId){
-      var deferred = $q.defer();
-      $http.delete('/api/contactList/'+contactId)
+    srv.delete = function(id){
+      let deferred = $q.defer();
+      $http.delete(srv.endpoint + '/'+id)
         .success(function (data, status) {
           if(status === 200){
             deferred.resolve(data);
           }
           else {
-            deferred.reject('Contact Not deleted' + contactId);
+            deferred.reject(srv.msg.notDeleted);
           }
         })
-        .error(function (data, status) {
-          deferred.reject('Contact not deleted error');
+        .error(function (fallback) {
+          deferred.reject(fallback);
         });
 
       return deferred.promise;
