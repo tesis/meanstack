@@ -3,7 +3,7 @@ $ cat .gitignore
 *~     # no files with ending and logs ~
 logs
 *.log
-*.md
+
 env.json #env.json.sample provided, just remove '.sample' and add/replace values
 
 # Dependency directory
