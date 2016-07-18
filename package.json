@@ -4,7 +4,7 @@
   "author": "Tereza Simcic",
   "homepage": "http://tesispro.net",
   "private": true,
-  "description": "mean stack application with jade template engine"
+  "description": "mean stack application with jade template engine",
   "scripts": {
     "start": "node_modules/.bin/supervisor ./bin/www",
     "test": "make test"
