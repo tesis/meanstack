@@ -1,10 +1,24 @@
 {
-  "name": "teamCo",
+  "name": "MEANstack",
   "description": "MEANstack application - cutsomer management system. Users have permissions to manage customers, tasks. They can add, update, delete customers, monitoring specific customer and the tasks assigned, monitoring tasks assigned to another user, changing a status of the tasks. In addition, users will be able to perform CRUD operations for tasks, reassign tasks to another user, adding caseworks, notes, comments, uploding files and sending emails.",
-  "version": "2.0.0",
+  "keywords": [
+    "nodejs",
+    "mongodb",
+    "angularjs",
+    "expressjs",
+    "MEAN",
+    "meanstack",
+  ],
+  "version": "0.2.0",
   "homepage": "https://github.com/tesis/meanstack",
+  "author": "Tereza Simcic (http://tesispro.com)",
+  "author": {
+    "name": "Tereza simcic",
+    "email": "tereza.simcic@gmail.com",
+    "url": "https://github.com/tesis"
+  },
   "license": "MIT",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "node_modules/.bin/supervisor ./bin/www",
     "test": "make test",
