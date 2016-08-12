@@ -1,0 +1,20 @@
+ul.table
+  li.table-row(data-ng-model="taskModel", data-ng-repeat="task in cCtrl.tasks | filter:cCtrl.paginate")
+    div.wrapper
+      //- {{ task }}
+      div.title
+        h3 <span class="bold">Problem:</span> {{ task.title }}
+          a.small.pull-right(href="casework/{{ task.caseworkId }}") Related Casework
+        p Allocated to:
+          a(href="/CMS/tasks/{{task.userId}}") {{ task.username }}
+      div.body
+        div.table-cell
+          p {{ task.details }}
+        div.table-cell
+          p {{ task.created | date:"dd/MM/yyyy" }} {{ task.completed  | date:"dd/MM/yyyy" }}
+        div.table-cell
+          p.status(uib-tooltip="Task {{ task.taskStatus }}", tooltip="tooltip", tooltip-placement="bottom")
+            span(class="{{ task.taskStatus }}", data-ng-click="cCtrl.updateTaskStatus(task)")
+
+div(data-ng-if="cCtrl.totalItems > cCtrl.numPerPage")
+  div(uib-pagination, data-ng-model="cCtrl.currentPage", total-items="cCtrl.totalItems", items-per-page="cCtrl.numPerPage", boundary-links="true",  class="pagination-sm pull-right", previous-text="<", next-text=">", first-text="<<", last-text=">>", force-ellipses="true", boundary-link-numbers="true", data-ng-change="cCtrl.pageChanged()")

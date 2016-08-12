@@ -1,0 +1,76 @@
+div.row.col-md-12.page-section.wide-padding(data-ng-if="tCtrl.formShow")
+  div(uib-alert data-ng-repeat="alert in tCtrl.alerts", dismiss-on-timeout="5000", type="{{alert.type}}", close="tCtrl.closeAlert()" ) {{alert.msg}}
+
+  form.form-horizontal.col-md-6(novalidate, autocomplete="off", name="tCtrl.form")
+    .form-group(show-errors)
+      label.control-label.col-xs-3 Title
+        span.icon-req.glyphicon.glyphicon-asterisk
+      .col-xs-9
+        input.form-control(type="text", name="title", placeholder="Define title", data-ng-model="tCtrl.taskNew.title", data-ng-minlength="3", required="required")
+
+        span.help-inline.error(data-ng-if = "tCtrl.form.title.$touched && tCtrl.form.title.$error.required") Title required
+
+    .form-group(show-errors)
+      label.control-label.col-xs-3 Details
+        span.icon-req.glyphicon.glyphicon-asterisk
+      .col-xs-9
+        textarea.form-control(name="details", placeholder="Description", data-ng-model="tCtrl.taskNew.details", data-ng-minlength="10", required="required")
+
+        span.help-inline.error(data-ng-if = "tCtrl.form.details.$touched &&  tCtrl.form.details.$error.required") Details required
+
+    .form-group(show-errors)
+      label.control-label.col-xs-3 For contact
+        span.icon-req.glyphicon.glyphicon-asterisk
+      .col-xs-9
+        input.form-control(type="text", name="selectedContact", placeholder="Search for contact", data-ng-model="tCtrl.selectedContact", required="required", data-contact-id="tCtrl.taskNew.contactId" ng-change="tCtrl.searchContact(tCtrl.selectedContact)")
+
+        span.help-inline.error(data-ng-if = "tCtrl.form.selectedContact.$touched &&  tCtrl.form.selectedContact.$error.required") Contact required
+
+        span.help-inline.error(data-ng-if = "tCtrl.form.selectedContact.$touched && tCtrl.form.selectedContact.$error.contactExisting") Contact does not exist
+
+        div(data-ng-if = "tCtrl.contacts")
+          ul.results.list-unstyled
+            li(data-ng-repeat="contact in tCtrl.contacts track by contact._id")
+              a(href="", data-ng-click="tCtrl.selectContact(contact, tCtrl.taskNew)") {{ contact.username }}
+        input(type="hidden", data-ng-model="tCtrl.taskNew.contactId", name="contactId")
+        input(type="hidden", data-ng-model="tCtrl.taskNew.contactEmail", name="email")
+
+    .form-group
+      label.control-label.col-xs-3 Due Date
+      .col-xs-9
+        p( uib-datepicker-popup, datepicker-popup="dd/MM/yyyy", data-ng-model="tCtrl.taskNew.dueDate", is-open="tCtrl.isOpened", close-text="Close") {{ tCtrl.taskNew.dueDate | date:"dd/MM/yyyy" }}
+          span.calendar(data-ng-click="tCtrl.opened($event, tCtrl.taskNew)")
+            i.glyphicon.glyphicon-calendar
+
+    .form-group
+      label.control-label.col-xs-3 Assign To:
+      div.btn-group( uib-dropdown )
+        button.btn.btn-default.btn-sm(type="button", id="users-list", uib-dropdown-toggle) {{ tCtrl.assignedUser }}
+          span.caret
+        //- data-ng-init="tCtrl.taskNew.userId =  tCtrl.assignedUserId ",
+        input(type="hidden", name="userId", data-ng-model="tCtrl.assignedUserId")
+        ul.dropdown-menu(uib-dropdown-menu, role="menu", aria-labelledby="users-list")
+          li(role="menuitem", data-ng-repeat="user in tCtrl.userList track by user.username", data-ng-click="tCtrl.userAssign(user._id, user.username, tCtrl.taskNew)")
+            a(href="#") {{ user.username }} &nbsp;
+              span(data-ng-class="user._id === tCtrl.assignedUserId ? 'glyphicon green glyphicon-ok':''")
+
+    .form-group
+      p.status(uib-tooltip="Task {{ tCtrl.taskNew.taskStatus }} {{ tCtrl.taskNew.completed | date:'dd/mm/yyyy'}}", tooltip="tooltip", tooltip-placement="bottom", data-ng-click="tCtrl.updateTaskStatus(task)")
+            span(class="{{ task.taskStatus }}")
+    .form-group
+      label.control-label.col-xs-3 Send Email
+      input.col-xs-18(type="checkbox", data-ng-model="tCtrl.taskNew.sendEmail")
+    //-
+      .form-group(data-ng-if = "tCtrl.taskNew._id")
+        p UserId: {{ tCtrl.taskNew.userId ? tCtrl.taskNew.userId : '--'}}
+        p CaseworkID: {{ tCtrl.taskNew.caseworkId}}
+        p Created: {{ tCtrl.taskNew.created  | date:"dd/MM/yyyy"}}
+        p Completed: {{ tCtrl.taskNew.completed  | date:"dd/MM/yyyy"}}
+
+    p.small Required fields
+      span.icon-req.glyphicon.glyphicon-asterisk
+    .form-group.text-right
+      .col-xs-offset-2.col-xs-10
+        button.btn.btn-primary(data-ng-show="!tCtrl.btnShow", data-ng-click="tCtrl.create()") Add task
+        //- button.btn.btn-info(data-ng-show="tCtrl.btnShow", data-ng-click="tCtrl.update()") Update Task
+        button.btn.btn-default(data-ng-click="tCtrl.closeForm()") Cancel

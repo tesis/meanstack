@@ -1,0 +1,89 @@
+div.pull-right
+  //- open on new page
+  //- a.btn.btn-info(href="/CMS/task/create") New task
+  button.btn.btn-info(data-ng-click="tCtrl.openForm()") New task
+
+h2.lead {{ " Tasks for user: "}} {{ tCtrl.selectedUsername }}
+
+p.lead.animate-show(data-ng-if="tCtrl.totalItems == 0") No tasks for this user.
+
+
+div(data-ng-if="tCtrl.formShow")
+  <task-form></task-form>
+
+div.tasks.clear.pt-40
+  div(data-ng-class="tCtrl.detailsShow ? 'col-md-4' : 'col-md-12'")
+    div(data-ng-show="tCtrl.detailsShow")
+      a.icon-actions(href="", data-ng-click="tCtrl.toggleLeft=!tCtrl.toggleLeft")
+        span(data-ng-class="'glyphicon inherit glyphicon-expand'")
+    ul.list-unstyled(data-ng-show="!tCtrl.toggleLeft")
+      li(data-ng-repeat="(i,task) in tCtrl.tasks track by task._id")
+          span.status(uib-tooltip="Task {{ task.taskStatus }} {{ task.completed | date:'dd/mm/yyyy'}}", tooltip="tooltip", tooltip-placement="bottom", data-ng-click="tCtrl.updateTaskStatus(task)")
+            span.status.small(class="{{ task.taskStatus }}")
+          a.title(href="",data-ng-click="tCtrl.showDetails(task, $event)", data-ng-class="tCtrl.active") {{ task.title }}
+
+
+
+  div.wrapper(data-ng-if="tCtrl.detailsShow", data-ng-class="!tCtrl.toggleLeft ? 'col-md-8' : 'col-md-12'")
+    span.right.close(data-ng-click="tCtrl.hideDetails()") &times;
+    h3.title {{ tCtrl.task.title }}
+      a.icons.small.edit(href="", ng-confirm-message="Are you sure to edit task?", ng-confirm-click="tCtrl.remove(tCtrl.task._id, tCtrl.task.userId)", uib-tooltip="Edit", tooltip="tooltip", tooltip-placement="bottom", data-title="Edit task {{ tCtrl.task.title }}")
+
+    div.col-md-5
+      p.bold Regarding:&nbsp;
+      p
+        a(href="/CMS/contacts/{{ tCtrl.task.contactId }}") {{ tCtrl.task.contactUsername }}
+
+    div.col-md-5
+      p.bold Associated with:
+      p
+        a.small(href="casework/{{ tCtrl.task.caseworkId }}") Related Casework
+
+    div.col-md-2
+
+      span.status(uib-tooltip="Task {{ tCtrl.task.taskStatus }} {{ tCtrl.task.completed | date:'dd/mm/yyyy'}}", tooltip="tooltip", tooltip-placement="bottom", data-ng-click="tCtrl.updateTaskStatus(tCtrl.task)")
+        span(class="{{ tCtrl.task.taskStatus }}")
+
+      a.icon-actions.delete(href="", ng-confirm-message="Are you sure to delete task?", ng-confirm-click="tCtrl.remove(tCtrl.task._id, tCtrl.task.userId)", uib-tooltip="Delete", tooltip="tooltip", tooltip-placement="bottom", data-title="Delete task {{ tCtrl.task.title }}")
+
+    div.pull-left
+      div.btn-group( uib-dropdown )
+        label.control-label.block Assign user
+        button.btn.btn-default.btn-sm(type="button", id="users-list", uib-dropdown-toggle) {{ tCtrl.selectedUsername }}
+          span.caret
+        ul.dropdown-menu(uib-dropdown-menu, role="menu", aria-labelledby="users-list")
+          li(role="menuitem", data-ng-repeat="user in tCtrl.userList track by user.username", data-ng-click="tCtrl.updateUser(tCtrl.task, user._id)")
+            a(href="#") {{ user.username }} &nbsp;
+              span(data-ng-class="user._id === tCtrl.task.userId ? 'glyphicon green glyphicon-ok':''")
+
+      div.btn-group.ml-15( uib-dropdown )
+        label.control-label.block(uib-tooltip="Actions related to the customer", tooltip="tooltip", tooltip-placement="Top") Actions
+        button.btn.btn-default.btn-sm.dd-165(type="button", id="action-list", uib-dropdown-toggle,) ...
+
+        ul.dropdown-menu(uib-dropdown-menu, role="menu", aria-labelledby="action-list")
+          li(role="menuitem")
+            a.email(href="#") Send Email
+          li(role="menuitem")
+            a.comment(href="#") Add comment
+          li(role="menuitem")
+            a.casework(href="#") New casework
+
+    div.body.clear.pt-20
+
+      form.tasks-form(show-errors, name="tCtrl.form")
+        div.form-group
+          label.control-label.block Details
+
+          textarea.form-control(name="details", data-ng-model="tCtrl.task.details", data-ng-blur="tCtrl.updateTaskDetails(tCtrl.task)", data-ng-minlength="10", required="required" details) {{ tCtrl.task.details }}
+          span.help-inline.details(data-ng-show = "tCtrl.form.details.$touched &&  tCtrl.form.details.$error.required") Details required
+
+    div.col-md-6
+      p.lh-2 Created: {{ tCtrl.task.created | date:"dd/MM/yyyy" }}
+    div.col-md-6
+      p.lh-2( uib-datepicker-popup, datepicker-popup="dd/MM/yyyy", data-ng-model="tCtrl.task.dueDate", is-open="tCtrl.task.isOpen", close-text="Close", data-ng-change="tCtrl.dateChanged(tCtrl.task)") Due: {{ tCtrl.task.dueDate  | date:"dd/MM/yyyy" }}
+        span.calendar(data-ng-click="tCtrl.open($event, tCtrl.task)")
+          i.glyphicon.glyphicon-calendar
+
+
+  div.clear.left.block.w100p(data-ng-if="tCtrl.totalItems > tCtrl.numPerPage",data-ng-show="!tCtrl.toggleLeft")
+      div(uib-pagination, data-ng-model="tCtrl.currentPage", total-items="tCtrl.totalItems", items-per-page="tCtrl.numPerPage", boundary-links="true",  class="pagination-sm pull-right", previous-text="<", next-text=">", first-text="<<", last-text=">>", force-ellipses="true", boundary-link-numbers="true", data-ng-change="tCtrl.pageChanged()")
