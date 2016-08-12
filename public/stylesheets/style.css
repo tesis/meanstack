@@ -6,41 +6,134 @@ body {
 a {
   color: #00B7FF;
 }
+.ib{
+  display: inline-block;
+}
+.block{
+  display: block;
+}
+.left{
+  float: left;
+}
+.right{
+  float:right;
+}
+.clear{
+  clear:both;
+}
 ul{
    padding-inline-start: 0 !important;
 }
-.color-red{
+.red, .color-red{
   color: #fa787e;
 }
-.color-green{
+.green, .color-green{
   color: #78fa89;
 }
+.inherit{
+  color:#777 !important;
+}
+.view-btn{
+  margin-left:10px;
+  padding:10px 5px;
+  border-bottom: 1px dotted #777;
+}
+/*This helps the ng-show/ng-hide animations start at the right place.*/
+.ng-hide {
+  display: none!important;
+}
+/*------------------------------------------------------------------
+  xxx:Icons (sort-icons for table)
+------------------------------------------------------------------*/
 .sort-icon, .icon-req {
-    font-size: 9px;
-    margin-left: 5px;
+  font-size: 9px;
+  margin-left: 5px;
 }
 .icon-req{
   color: #fa787e;
   top: -3px;
 }
-
-p.status{
-  display: inline-block;
-  height: 100%;
-  width: 100%;
+.icon-actions {
+  color: #777777;
+  font-size: 1.3em !important;
+  margin: 0 5px;
+  font-style: normal;
+  cursor: pointer;
 }
+i.icons{
+  font-style:normal;
+}
+a.email:before, a.casework:before, a.comment:before, i.phone:before, i.user:before, a.edit:before, a.delete:before{
+  font-family:"Glyphicons Halflings";
+  line-height:1;
+  margin:5px;
+  color: rgba(0,0,0,0.1);
+}
+a.email:before{
+  content:"\2709";
+}
+a.casework:before{
+  content:"\e010";
+}
+a.comment:before{
+  content:"\e111";
+}
+i.phone:before{
+  content:"\e183";
+}
+i.user:before{
+  content:"\e008";
+}
+a.edit:before{
+  content:"\e065";
+}
+a.delete:before{
+  content:"\e020";
+  color: #fa787e !important;
+}
+.close{
+  font-style: 1em;
+  cursor: pointer;
+}
+.calendar {
+  color: #999;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.2em;
+  margin-left: 5px;
+}
+.expand, .expand.up{
+  color: #777777;
+  font-size: 1.3em !important;
+  margin: 0 5px;
+}
+.expand:before, .expand.up:before{
+  font-family:"Glyphicons Halflings";
+  line-height:1;
+  margin:5px;
+  color: rgba(0,0,0,0.1);
+  content:"\e159";
+}
+.expand.up{
+  content:"\e160";
+}
+/*tasks icons*/
 .completed, .uncompleted{
-  font-size: 2em;
+  font-size: 1.3em;
   text-align: center;
   height:40px;
   width:100%;
   margin:6px;
   cursor: pointer;
 }
+.small.completed, .small.uncompleted{
+  font-size: 0.9em;
+  color: #777 !important;
+}
 .completed:before, .uncompleted:before{
   font-family:"Glyphicons Halflings";
   line-height:1;
-  margin:5px;
+  /*margin:5px;*/
 }
 .completed {
   color: #78fa89;
@@ -58,61 +151,63 @@ p.status{
   content:"\e014";
 }
 /*------------------------------------------------------------------
-  xxx:Animations
+  xxx:Tasks
 ------------------------------------------------------------------*/
-.animate-show {
-  line-height: 20px;
-  opacity: 1;
-  padding: 10px;
+p.status{
+  display: inline-block;
+  height: 100%;
+  width: 100%;
 }
-
-.animate-show.ng-hide {
-  transition: all linear 0.5s;
+.tasks-form textarea{
+  min-width: 400px;
+  min-height: 200px;
 }
-
-.animate-show.ng-hide {
-  line-height: 0;
-  opacity: 0.3;
-  padding: 0 10px;
+a.title{
+  font-size: 1.2em;
+}
+.results.list-unstyled{
+  margin-top: 10px;
+  padding: 5px;
+}
+.results.list-unstyled li{
+  height: 25px;
+  display: block;
+}
+.results.list-unstyled li a{
+  line-height: 25px;
+  display:inline-block;
+}
+.results.list-unstyled li a:hover{
+  border-bottom: 1px dotted rgba(0,0,0,0.18)
 }
 /*------------------------------------------------------------------
-  xxx:loading spinner
+  xxx:Dropdowns
 ------------------------------------------------------------------*/
-.fa-spin {  animation: 2s linear 0s normal none infinite running fa-spin;}
-@keyframes fa-spin {0% {    transform: rotate(0deg);}100% {  transform: rotate(359deg);}}
-.loading, .loader {
-  background: rgba(0, 0, 0, 0.15) ;
-  border-radius: 10px;
-  color: #000000;
-  display: inline-block;
-  font-size: 20px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 2px;
-  width: 20px;
-  z-index: 1000;
-  position:relative;
-
-  font-family: FontAwesome;
-  font-feature-settings: normal;
-  font-kerning: auto;
-  font-language-override: normal;
-  font-size: inherit;
-  font-size-adjust: none;
-  font-stretch: normal;
-  font-style: normal;
-  font-synthesis: weight style;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: 1;
-  text-rendering: auto;
-  transform: translate(0px, 0px);
+.dropdown, .dropdown .btn{
+  min-width: 100px;
+  text-align: left !important;
 }
-.loading:after{
-  position:absolute;
-  content: '*';
-  top:2px;
-  left:3px;
+.caret{
+  margin-left:10px !important;
+}
+.dropdown-menu{
+  min-width: 100px !important;
+}
+.dd-165{
+  min-width: 165px !important;
+}
+/*------------------------------------------------------------------
+  xxx:Button row - lists
+------------------------------------------------------------------*/
+.btn-row{
+
+}
+.btn-row .dropdown{
+
+}
+.title {
+  border-bottom: 1px dotted #999;
+  margin-bottom: 5px;
 }
 /*------------------------------------------------------------------
   xxx:Table style
@@ -125,6 +220,12 @@ p.status{
 .table-row{
   display: table-row;
   height: 100%;
+  opacity: 1;
+}
+.table-row.ng-hide{
+  transition: all .8s ease-in-out;
+  height: 0;
+  opacity: 0;
 }
 .table-row .wrapper {
   display: inline-block;
@@ -142,48 +243,35 @@ p.status{
 .table-row .body{
   height: 100%;
   top:40px;
+  display: inline-block;
 }
 .table-cell{
   display: table-cell;
   padding: 40px 20px;
 }
-/*------------------------------------------------------------------
-  xxx:Tables
-------------------------------------------------------------------*/
-th {
-    cursor:pointer;
+.table.contacts .table-cell{
+  padding:10px !important;
 }
-.pagination{
-  margin:0 0 0 30px;
+.table.contacts .table-row{
+  border-bottom: 1px dotted #777;
 }
-h1,h2,h3,h4{
-  font-weight: 300;
-  letter-spacing: 1px;
+
+.tasks ul.list-unstyled{
+  display: block;
+  min-height: 450px;
 }
-.bold{
-  font-weight: bold;
-}
-li a{
-  font-weight: 300 !important;
-}
-li.active a{
-  color:#555;
-  font-weight: 400;
-}
-li span.hello {
-  color: #999;
+.tasks ul.list-unstyled li{
   display: inline-block;
-  line-height: 20px;
-  padding: 15px 0;
+  float: left;
+  clear:both;
+  line-height: 1.5;
 }
-.ng-invalid.ng-dirty{
-  border-color: #fa787e;
+.tasks h3{
+  margin: 0;
 }
-.ng-valid.ng-dirty{
-  border-color: #78fa89
-}
-span.error{
-  color: #fa787e;
+.tasks h3.title{
+  padding-bottom: 5px;
+  margin-bottom: 15px;
 }
 /*------------------------------------------------------------------
   xxx: Bootstrap override
@@ -306,6 +394,9 @@ a:focus, a:hover {
 .mt-100 {
   margin-top: 100px !important;
 }
+.ml-15{
+  margin-left:15px;
+}
 .mr-15 {
   margin-right: 15px;
 }
@@ -364,7 +455,44 @@ a:focus, a:hover {
   line-height: 2;
 }
 
-
+/*------------------------------------------------------------------
+  xxx:Tables
+------------------------------------------------------------------*/
+th {
+    cursor:pointer;
+}
+.pagination{
+  margin:0 0 0 30px;
+}
+h1,h2,h3,h4{
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+.bold{
+  font-weight: bold;
+}
+li a{
+  font-weight: 300 !important;
+}
+li.active a{
+  color:#555;
+  font-weight: 400;
+}
+li span.hello {
+  color: #999;
+  display: inline-block;
+  line-height: 20px;
+  padding: 15px 0;
+}
+.ng-invalid.ng-dirty{
+  border-color: #fa787e;
+}
+.ng-valid.ng-dirty{
+  border-color: #78fa89
+}
+span.error{
+  color: #fa787e;
+}
 /*------------------------------------------------------------------
   xxx:animation - not in use
 ------------------------------------------------------------------*/
@@ -375,3 +503,87 @@ a:focus, a:hover {
  .my-form.ng-invalid {
    background: red;
  }
+ /*------------------------------------------------------------------
+  xxx:Animations
+------------------------------------------------------------------*/
+ul.animate{}
+.animate-repeat {
+  line-height:30px;
+  list-style:none;
+  box-sizing:border-box;
+}
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave {
+  transition:all linear 0.5s;
+}
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-scope.ng-hide {
+  opacity:0;
+  max-height:0;
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+  opacity:1;
+  max-height:30px;
+}
+.animate-show {
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+}
+
+.animate-show.ng-hide,.animate-repeat {
+  transition: all linear 0.5s;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0.3;
+  padding: 0 10px;
+}
+/*------------------------------------------------------------------
+  xxx:loading spinner
+------------------------------------------------------------------*/
+.fa-spin {  animation: 2s linear 0s normal none infinite running fa-spin;}
+@keyframes fa-spin {0% {    transform: rotate(0deg);}100% {  transform: rotate(359deg);}}
+.loading, .loader {
+  background: rgba(0, 0, 0, 0.15) ;
+  border-radius: 10px;
+  color: #000000;
+  display: inline-block;
+  font-size: 20px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 2px;
+  width: 20px;
+  z-index: 1000;
+  position:relative;
+
+  font-family: FontAwesome;
+  font-feature-settings: normal;
+  font-kerning: auto;
+  font-language-override: normal;
+  font-size: inherit;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-synthesis: weight style;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  text-rendering: auto;
+  transform: translate(0px, 0px);
+}
+.loading:after{
+  position:absolute;
+  content: '*';
+  top:2px;
+  left:3px;
+}

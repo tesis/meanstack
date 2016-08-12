@@ -11,62 +11,76 @@ In final version, users will be able to perform CRUD operations for tasks, reass
 
 # MEAN mongoDb Express angularJS nodeJS Project
 ### Live version hosted on Openshift:
-  http://njs-tesispro.rhcloud.com
+  https://intense-coast-56613.herokuapp.com
 --------
 ## Objectives
 
 MongoDb Express AngularJs NodeJS Project (MEAN)
- - authentication system (WIP: reset password / confirmation )
+ - login system with authentication (using passport and bcrypt)
  - mongoDb using mongoose
  - Express version should be at least 4.1
  - restricted access for CMS (part of the project)
  - non logged in users can access only basic pages
  - logged in users can add / edit / delete customers, access tasks pages
  - CRUD provided for users and customers
- (at this stage)
- - WIP:
-    - users can only be registered with invitation
-    - users will be able to assign tasks, etc...
-
+ - users can manage their accounts (change/reset password, delete account)
+ - users are allowed to reassign tasks, edit and delete them
 
 
 #### Structure
 -------------------------
-    access.log
-    app.js
-    env.sample.json
-    Makefile
-    package.json
-    README.md
-
-    ./bin:
-         www
-
-    ./client:
-
-        controllers
-        directives
-        main.js
-        services
-
-    ./public:
-
-        fonts
-        images
-        javascripts
-        stylesheets
-
-    ./server:
-        api
-        config
-        models
-        routes
-    ./views:
-        auth
-        contacts
-        includes
-        partials
-        tasks
+```sh
+├── access.log
+├── app.js
+├── bin
+│   └── www
+├── bower.json
+├── client
+│   ├── components
+│   ├── main.js
+│   ├── modules
+│   └── shared
+├── env.sample.json
+├── json
+│   ├── casework.json
+│   ├── contacts.json
+│   └── tasks.json
+├──  LICENSE.txt
+├── Makefile
+├── notes.log
+├── package.json
+├── public
+│   ├── fonts
+│   ├── images
+│   ├── lib
+│   └── stylesheets
+├── README.md
+├── server
+│   ├── api
+│   ├── config
+│   ├── models
+│   ├── routes
+│   └── util
+├── test
+│   ├── test.auth.js
+│   ├── test.contacts.js
+│   ├── test.contacts.model.js
+│   ├── test.js
+│   ├── test.tasks.model.js
+│   └── test.users.js
+├── tests
+│   └── testsSpec.js
+└── views
+    ├── contacts
+    ├── emailTemplates
+    ├── error.jade
+    ├── includes
+    ├── index.jade
+    ├── layout.jade
+    ├── partials
+    ├── tasks
+    └── users
+```
 
 
 ### Final package.json:
@@ -81,24 +95,25 @@ MongoDb Express AngularJs NodeJS Project (MEAN)
     "test": "make test",
     "tst-for-running-tests": "node_modules/karma/bin/karma start karma.conf.js"
   },
-  "dependencies": {
-    "express": "~4.13.4",
-    "static-favicon": "~1.0.0",
-    "morgan": "~1.0.0",
-    "cookie-parser": "~1.0.1",
+    "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
     "debug": "~0.7.4",
+    "email-templates": "^2.4.0",
+    "express": "~4.13.4",
+    "express-session": "^1.13.0",
     "jade": "~1.3.0",
+    "jsonwebtoken": "^7.0.1",
     "mongodb": "~2.2.0",
     "mongoose": "~4.5.3",
-    "supervisor": "^0.11.0",
-    "express-session": "^1.13.0",
+    "morgan": "~1.0.0",
+    "nodemailer": "^2.4.2",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^1.0.0",
-    "jsonwebtoken": "^7.0.1",
-    "nodemailer": "^2.4.2",
-    "activator": "^2.3.0"
+    "static-favicon": "~1.0.0",
+    "supervisor": "^0.11.0",
+    "url-crypt": "^1.2.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.7",

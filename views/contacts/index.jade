@@ -1,8 +1,6 @@
 .container
   h1 Contacts List
   div.row.col-md-12.mtb-box
-    //- notifications when contact is saved/updated/deleted
-    div(uib-alert  ng-repeat="alert in cCtrl.alerts", dismiss-on-timeout="5000", type="{{alert.type}}", close="cCtrl.closeAlert()" ) {{alert.msg}}
 
     div.pull-right
       form.form-inline.pull-left
@@ -13,9 +11,9 @@
 
     div.pull-left
       button.btn.btn-info(data-ng-click="cCtrl.openForm()") New contact
-      button.btn.btn-info(data-ng-show="cCtrl.formShow", data-ng-click="cCtrl.closeForm()") Close
 
-    <contact-form></contact-form>
+    div(data-ng-if="cCtrl.formShow")
+      <contact-form></contact-form>
 
-  <contact-list /></contact-list>
+  <contact-list></contact-list>
 

@@ -1,8 +1,23 @@
 // Register a main module
-angular.module('myApp', ['ngRoute','ui.bootstrap','ngConfirmModule']);
+angular.module('myApp', [
+  /*
+   * Angular modules
+   */
+  'ngRoute',/*'ngSanitize', 'ngAnimate',*/
+  /*
+   * 3rd Party modules
+   */
+  'ui.bootstrap',
+  /*
+   * Reusable cross app code modules
+   */
+  'myModal', 'errorHandler',
 
-// Config
+  'app.users', 'app.contacts', 'app.tasks', 'app.dashboard'
+]);
+
 angular.module('myApp')
+  // Config
   .config(config)
   // Run
   .run(run)
@@ -16,23 +31,6 @@ function config($routeProvider, $locationProvider, $httpProvider) {
       templateUrl: 'partials/home',
       controller: 'MainController',
       controllerAs: 'vm',
-      access: {restricted: false}
-    })
-    .when('/login', {
-      templateUrl: 'auth/login',
-      controller: 'loginController',
-      controllerAs: 'ctrl',
-      access: {restricted: false}
-    })
-    .when('/logout', {
-      controller: 'logoutController',
-      controllerAs: 'logoutCtrl',
-      access: {restricted: false}
-    })
-    .when('/register', {
-      templateUrl: 'auth/register',
-      controller: 'registerController',
-      controllerAs: 'ctrl',
       access: {restricted: false}
     })
     .when('/about', {
@@ -54,42 +52,6 @@ function config($routeProvider, $locationProvider, $httpProvider) {
       controllerAs: 'vm',
       access: {restricted: false}
     })
-    // CMS with restricted access
-    .when('/CMS', {
-      templateUrl: 'partials/cms',
-      controller: 'DashboardController',
-      controllerAs: 'cms',
-      access: {restricted: true}
-    })
-
-    // Contacts
-    .when('/CMS/contacts', {
-      templateUrl: 'contacts/index',
-      controller: 'ContactsController',
-      controllerAs: 'cCtrl',
-      access: {restricted: true}
-    })
-    //get a contact by id - list tasks, caseworks, etc
-    .when('/CMS/contacts/:id', {
-      templateUrl: 'contacts/contact',
-      controller: 'ContactsController',
-      controllerAs: 'cCtrl',
-      access: {restricted: true}
-    })
-    // Tasks
-    .when('/CMS/tasks', {
-      templateUrl: 'tasks/index',
-      controller: 'TasksController',
-      controllerAs: 'tCtrl',
-      access: {restricted: true}
-    })
-    // not in use yet
-    .when('/CMS/tasks/:id', {
-      templateUrl: 'tasks/templ',
-      controller: 'TasksController',
-      controllerAs: 'tCtrl',
-      access: {restricted: true}
-    })
 
     // If route does not exist - go to error page
     .otherwise({
@@ -107,19 +69,21 @@ function config($routeProvider, $locationProvider, $httpProvider) {
 
 
 
-run.$inject = ['$rootScope', '$location', '$route', 'AuthService'];
+run.$inject = ['$rootScope', '$location', '$route', 'UsersService'];
 
-function run($rootScope, $location, $route, AuthService) {
+function run($rootScope, $location, $route, UsersService) {
 
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     $rootScope.loggedIn = false;
     $rootScope.error = false;
     $rootScope.username = null;
 
-    var check = AuthService.isLoggedIn();
+    var check = UsersService.isLoggedIn();
     if(check){
       $rootScope.loggedIn = true;
-      $rootScope.username = AuthService.currentUser();
+      var auth = UsersService.currentUser();
+      $rootScope.username = auth.username;
+      $rootScope.userId = auth._id;
     }
 
     // For restricted access
@@ -131,3 +95,4 @@ function run($rootScope, $location, $route, AuthService) {
   });
 }
 
+// other general services

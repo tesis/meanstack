@@ -38,6 +38,7 @@ var Contact = {
     // if (id.match(/^[0-9a-fA-F]{24}$/)) {
     //   console.log('ID OK: ' + id)
     // }
+      // console.log('ID : ' + id)
     contacts.findById(id, function(err, doc) {
       if (err) {
         return res.status(401).json(err.message);
@@ -57,6 +58,33 @@ var Contact = {
 
       res.status(200).json(docs);
     });
+  },
+  // Search by keyword several fields, case sensitive
+  searchUsername: function(req, res) {
+    var keyword = req.params.keyword;
+    var query = contacts.find(
+      {
+        //username: { $regex : keyword, $options: 'i' },
+        $or: [
+                {username: { $regex : keyword, $options: 'i' }},
+                {fname: { $regex : keyword, $options: 'i' }},
+                {lname: { $regex : keyword, $options: 'i' }},
+                {email: { $regex : keyword, $options: 'i' }}
+             ]
+      },
+      {username:1, email:1}
+
+    );
+    query.limit(5).sort({_id: -1}).exec('find', function (err, docs) {
+      if (err) {
+        return res.status(401).json({
+          err: err.message
+        });
+      }
+      // console.log(count);
+      res.status(200).json({docs:docs});
+    });
+
   },
 
   findEmail: function(req, res) {
@@ -88,6 +116,8 @@ var Contact = {
 
     var conditions = {"_id": id};
 
+    // var update = req.body;
+    // console.log(req.body.lname);
     // TODO: add date today for update - compatible with the schema
     var update = {$set: { _id: id, username: req.body.username, phone: req.body.phone, email: req.body.email, fname: req.body.fname, lname: req.body.lname}};
     var options = {new: true, upsert: true};
@@ -116,6 +146,8 @@ var Contact = {
       });
     });
   }
+  /*------------ end obj -----------------------*/
 }
 
 module.exports = Contact;
+

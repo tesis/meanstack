@@ -23,28 +23,16 @@ var Pages = {
       res.render('partials/' + name );
     }
   },
-  auth: function (req, res) {
+  users: function (req, res) {
     var name = req.params.name;
 
-    res.render('auth/' + name );
+    res.render('users/' + name );
   },
   contacts: function (req, res) {
     var name = req.params.name;
     res.render('contacts/' + name );
   },
-  test: function (req, res) {
-    var name = req.params.name;
-    console.log(req.params)
-    if(req.params.id !== undefined){
-      var id = req.params.id;
-      console.log('id known')
-      res.render('test/' + name + '/' + id );
-    }
-    else{
-      console.log('id unknown')
-      res.render('test/' + name  );
-    }
-  },
+
   tasks: function (req, res) {
     var name = req.params.name;
 

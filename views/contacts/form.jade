@@ -1,13 +1,15 @@
-div.row.col-md-12.page-section.wide-padding(data-ng-show="cCtrl.formShow")
+div.row.col-md-12.page-section.wide-padding(data-ng-if="cCtrl.formShow")
+  div(uib-alert data-ng-repeat="alert in tCtrl.alerts", dismiss-on-timeout="5000", type="{{alert.type}}", close="tCtrl.closeAlert()" ) {{alert.msg}}
+
   form.form-horizontal.col-md-6(novalidate, autocomplete="off", name="cCtrl.form")
     .form-group(show-errors)
       label.control-label.col-xs-2 Username
         span.icon-req.glyphicon.glyphicon-asterisk
       .col-xs-10
-        input.form-control(type="text", name="username", placeholder="Enter Username", data-ng-model="cCtrl.contact.username", data-ng-minlength="3", required="required" username)
+        input.form-control(type="text", name="username", placeholder="Enter Username", data-ng-model="cCtrl.contact.username", data-contact-id="{{cCtrl.contact._id}}", data-ng-minlength="3", required="required" username)
 
-        span.help-inline.error(data-ng-show = "cCtrl.form.username.$touched && cCtrl.form.username.$error.required") Username required
-        span.help-inline.error(data-ng-show = "cCtrl.form.username.$error.username") Username already taken
+        span.help-inline.error(data-ng-if = "cCtrl.form.username.$touched && cCtrl.form.username.$error.required") Username required
+        span.help-inline.error(data-ng-show = "cCtrl.form.username.$touched && cCtrl.form.username.$error.usernameExists") Username already taken
 
     .form-group(show-errors)
       label.control-label.col-xs-2 First Name
@@ -15,7 +17,7 @@ div.row.col-md-12.page-section.wide-padding(data-ng-show="cCtrl.formShow")
       .col-xs-10
         input.form-control(type="text", name="fname", placeholder="Enter First Name", data-ng-model="cCtrl.contact.fname", data-ng-minlength="3", required="required")
 
-        span.help-inline.error(data-ng-show = "cCtrl.form.fname.$touched &&  cCtrl.form.fname.$error.required") First name required
+        span.help-inline.error(data-ng-if = "cCtrl.form.fname.$touched &&  cCtrl.form.fname.$error.required") First name required
 
     .form-group(show-errors)
       label.control-label.col-xs-2 Last Name
@@ -23,19 +25,19 @@ div.row.col-md-12.page-section.wide-padding(data-ng-show="cCtrl.formShow")
       .col-xs-10
         input.form-control(type="text", name="lname", placeholder="Enter Last Name", data-ng-model="cCtrl.contact.lname", data-ng-minlength="3", required="required")
 
-        span.help-inline.error(data-ng-show = "cCtrl.form.lname.$touched &&  cCtrl.form.lname.$error.required") Last name required
+        span.help-inline.error(data-ng-if = "cCtrl.form.lname.$touched &&  cCtrl.form.lname.$error.required") Last name required
 
     .form-group(show-errors)
       label.control-label.col-xs-2 Email
         span.icon-req.glyphicon.glyphicon-asterisk
       .col-xs-10
-        input.form-control(type="email", name="email", placeholder="Enter Email", data-ng-model="cCtrl.contact.email", data-ng-minlength="3", required="required" email)
+        input.form-control(type="email", name="email", placeholder="Enter Email", data-ng-model="cCtrl.contact.email", data-contact-id="{{cCtrl.contact._id}}" data-ng-minlength="3", required="required" email)
 
-        span.help-inline.error(data-ng-show = "cCtrl.form.email.$touched &&  cCtrl.form.email.$error.required") Email required
+        span.help-inline.error(data-ng-if = "cCtrl.form.email.$touched &&  cCtrl.form.email.$error.required") Email required
 
-        span.help-inline.error(data-ng-show = "cCtrl.form.email.$touched &&  cCtrl.form.email.$error.email") Email should be valid
+        span.help-inline.error(data-ng-if = "cCtrl.form.email.$touched &&  cCtrl.form.email.$error.email") Email should be valid
 
-        span.help-inline.error(data-ng-show = "cCtrl.form.email.$error.emailExists") Email already exists
+        span.help-inline.error(data-ng-if = "cCtrl.form.email.$touched && cCtrl.form.email.$error.emailExists") Email already exists
 
         //- <tt>text = {{cCtrl.email.text}}</tt><br/>
         //- <tt>myForm.input.$valid = {{cCtrl.form.email.$valid}}</tt><br/>
@@ -54,6 +56,6 @@ div.row.col-md-12.page-section.wide-padding(data-ng-show="cCtrl.formShow")
       span.icon-req.glyphicon.glyphicon-asterisk
     .form-group.text-right
       .col-xs-offset-2.col-xs-10
-        button.btn.btn-primary(data-ng-show="!cCtrl.btnShow", data-ng-click="cCtrl.create()") Add Contact
-        button.btn.btn-info(data-ng-show="cCtrl.btnShow", data-ng-click="cCtrl.update()") Update Contact
+        button.btn.btn-primary(data-ng-if="!cCtrl.btnShow", data-ng-click="cCtrl.create()") Add Contact
+        button.btn.btn-info(data-ng-if="cCtrl.btnShow", data-ng-click="cCtrl.update()") Update Contact
         button.btn.btn-default(data-ng-click="cCtrl.closeForm()") Cancel

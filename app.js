@@ -1,5 +1,5 @@
 /**
- * app.js
+ * app.js - moved to index.js
  * main application file
  *
  */
@@ -13,6 +13,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
+const myVar = 'MY_VAR';
 // Get mongoose model
 var contacts = require('./server/models/contacts');
 
@@ -58,6 +59,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 
+// rolling: true - resets the session on every request
+/*app.use(session({
+    secret: config.secret,
+    rolling: true,
+    resave: true,
+    saveUninitialized: false,
+    isLoggedIn:false,
+    username:''
+}));*/
+
 
 // passport config
 require('./server/config/passport')(app, passport);
@@ -70,6 +81,8 @@ app.use(express.static(path.join(__dirname, 'client')));
 ///////////////////////////////
 
 
+// app.use('/test', test);
+// routes for json API + serving index and view partials
 require('./server/routes')(app);
 
 
@@ -83,6 +96,14 @@ mongoose.connect(config.local, function(err) {
     console.log('connection successful');
   }
 
+});
+mongoose.set('debug', function (collectionName, method, query, doc, options) {
+  // console.log(__filename + ' mongoose DEBUG: ' );
+  // console.log(collectionName);
+  // console.log(query);
+  // console.log(method);
+  // console.log(options);
+  // console.log(doc);
 });
 
 /// catch 404 and forwarding to error handler
@@ -98,6 +119,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    console.log(err);
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,

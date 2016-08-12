@@ -1,47 +1,42 @@
 {
-  "name": "MEANstack",
-  "description": "MEANstack application - cutsomer management system. Users have permissions to manage customers, tasks. They can add, update, delete customers, monitoring specific customer and the tasks assigned, monitoring tasks assigned to another user, changing a status of the tasks. In addition, users will be able to perform CRUD operations for tasks, reassign tasks to another user, adding caseworks, notes, comments, uploding files and sending emails.",
-  "keywords": [
-    "nodejs",
-    "mongodb",
-    "angularjs",
-    "expressjs",
-    "MEAN",
-    "meanstack",
-  ],
-  "version": "0.2.0",
+  "name": "teamCo",
+  "description": "meanstack project - customer management system",
+  "version": "0.0.2",
   "homepage": "https://github.com/tesis/meanstack",
-  "author": "Tereza Simcic (http://tesispro.com)",
-  "author": {
-    "name": "Tereza simcic",
-    "email": "tereza.simcic@gmail.com",
-    "url": "https://github.com/tesis"
-  },
   "license": "MIT",
+  "author" : "Tereza Simcic <tereza.simcic@gmail.com>"
   "private": false,
+  "keywords" : [
+    "meanstack",
+    "authorization",
+    "login",
+    "email",
+    "restApi"
+  ],
   "scripts": {
     "start": "node_modules/.bin/supervisor ./bin/www",
     "test": "make test",
     "tst-for-running-tests": "node_modules/karma/bin/karma start karma.conf.js"
   },
   "dependencies": {
-    "express": "~4.13.4",
-    "static-favicon": "~1.0.0",
-    "morgan": "~1.0.0",
-    "cookie-parser": "~1.0.1",
+    "bcrypt": "^0.8.7",
     "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
     "debug": "~0.7.4",
+    "email-templates": "^2.4.0",
+    "express": "~4.13.4",
+    "express-session": "^1.13.0",
     "jade": "~1.3.0",
+    "jsonwebtoken": "^7.0.1",
     "mongodb": "~2.2.0",
     "mongoose": "~4.5.3",
-    "supervisor": "^0.11.0",
-    "express-session": "^1.13.0",
+    "morgan": "~1.0.0",
+    "nodemailer": "^2.4.2",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^1.0.0",
-    "jsonwebtoken": "^7.0.1",
-    "nodemailer": "^2.4.2",
-    "activator": "^2.3.0"
+    "static-favicon": "~1.0.0",
+    "supervisor": "^0.11.0",
+    "url-crypt": "^1.2.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.7",

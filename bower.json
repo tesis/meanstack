@@ -11,8 +11,7 @@
     "angular-mocks": "1.5.x",
     "angular-resource": "1.5.x",
     "angular-route": "1.5.x",
-    "bootstrap": "3.3.x",
-    "jquery": "2.2.x"
+    "angular-sanitize": "^1.5.8"
   },
   "authors": [
     "Tereza Simcic <tereza.simcic@gmail.com>"

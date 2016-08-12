@@ -5,37 +5,51 @@ footer
 
 block scripts
   //- main scripts
-  script(src='javascripts/angular-1.5.6.min.js')
-  script(src='javascripts/angular-route.min.js')
+
+  script(src='lib/angular/angular.min.js')
+  script(src='lib/angular-route/angular-route.min.js')
+
   //- ui bootstrap costumized for page num (pagination)
-  script(src='javascripts/ui-bootstrap-tpls-1.3.3.min.js')
+  script(src='lib/ui-bootstrap/ui-bootstrap-tpls-1.3.3.min.js')
+
+  //- App JS - bootstrapping
   script(src='main.js')
-  script(src='confirm.module.js')
+  //- Reusable
+  script(src='modules/modal.module.js')
+  script(src='shared/interceptor.service.js')
 
-  //- Always
-  script(src='directives/menu.directive.js')
-  script(src='directives/errors.directive.js')
-  script(src='services/interceptor.service.js')
 
-  //- Main
-  script(src='services/services.js')
-  script(src='controllers/controller.js')
-  script(src='directives/directive.js')
+  //- Users
+  script(src='components/users/config.route.js')
+  script(src='components/users/users.controller.js')
+  script(src='components/users/users.service.js')
+  script(src='components/users/users.directive.js')
 
-  //- Auth
-  script(src='services/auth.service.js')
-  script(src='directives/auth.directive.js')
-  script(src='controllers/auth.controller.js')
+  //- Errors
+  script(src='shared/error/error.controller.js')
+  script(src='modules/error.module.js')
 
-  //- Contacts
-  script(src='services/contacts.service.js')
-  script(src='controllers/contacts.controller.js')
-  script(src='directives/contacts.directive.js')
-
-  //- Tasks
-  script(src='controllers/tasks.controller.js')
+  //- Menu
+  script(src='shared/menu/menu.controller.js')
+  script(src='shared/menu/menu.directive.js')
 
   //- Dashboard
-  script(src='services/users.service.js')
-  script(src='services/tasks.service.js')
-  script(src='controllers/dashboard.controller.js')
+  script(src='components/dashboard/config.route.js')
+  script(src='components/dashboard/dashboard.controller.js')
+
+  //-Home
+  script(src='components/home/home.controller.js')
+
+  //- Contacts
+  script(src='components/contacts/config.route.js')
+  script(src='components/contacts/contacts.controller.js')
+  script(src='components/contacts/contacts.service.js')
+  script(src='components/contacts/contacts.directive.js')
+
+  //- Tasks
+  script(src='components/tasks/config.route.js')
+  script(src='components/tasks/tasks.controller.js')
+  script(src='components/tasks/tasks.service.js')
+  script(src='components/tasks/tasks.directive.js')
+
+
